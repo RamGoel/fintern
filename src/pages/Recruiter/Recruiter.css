@@ -1,0 +1,60 @@
+#recHomeDiv {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+#recHomeDiv>div {
+    width: 90%;
+    /* background-color: purple; */
+}
+
+#recHomeDiv div button {
+    width: 90% ;
+}
+
+#recHomeDiv div div h3{
+    text-align: left;
+    font-size: 13px;
+    margin: 5px 0px;
+}
+#recHomeHead{
+    display: flex;
+    align-items: center;
+    align-items: center;
+    width: 100%;
+    justify-content: space-around;
+    margin: auto;
+}
+
+#recHomeHead hr{
+    width: 30% !important;
+    opacity:.2;
+}
+
+
+
+
+#addPostingDiv{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+}
+
+#addPostingDiv h1{
+    font-size: 40px;
+    text-align: center;
+    font-weight: 700 !important;
+    width: 90%;
+    margin: auto;
+}
+
+#addPostingDiv h1 span{
+    color: lightgoldenrodyellow;
+}
+
+#addPostingDiv p{
+    font-size: 12px;
+    margin: 0px;
+}

@@ -1,0 +1,52 @@
+#roleDiv,#signupDiv, #loginDiv
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+#roleDiv div{
+    width: 100%;
+}
+
+#roleDiv div p{
+    font-size: 12px;
+}
+
+#roleDiv div h1{
+    font-size: 70px;
+    font-weight: 700 !important;
+}
+
+#roleDiv div h1 span{
+    color: lightgoldenrodyellow;
+}
+
+
+
+#loginDiv form h1{
+    font-size: 70px;
+    font-weight: 700 !important;
+}
+#loginDiv form h1 span{
+    color: lightgoldenrodyellow;
+}
+
+#loginDiv form p{
+    font-size: 12px
+}
+
+
+
+#signupDiv form h1{
+    font-size: 70px;
+    font-weight: 700 !important;
+}
+#signupDiv form h1 span{
+    color: lightgoldenrodyellow;
+}
+
+#signupDiv form p{
+    font-size: 12px
+}
