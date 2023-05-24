@@ -2,8 +2,6 @@ import { auth, db } from "./firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { checkValidObj, generateKey, getErrMessage } from "./plugins";
 import { getDoc, setDoc, doc, getDocs, collection, query, updateDoc, where } from "firebase/firestore";
-import { storage } from "./firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 export const loginUser = (data, handler, errHandler) => {
 

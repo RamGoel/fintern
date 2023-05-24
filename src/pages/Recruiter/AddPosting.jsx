@@ -3,12 +3,10 @@ import { addNewPosting } from '../../utils/api'
 import Loader from '../../components/Loader'
 import Button from '../../components/Button'
 import Input from '../../components/Input'
-import { useSelector } from 'react-redux'
 import { bgColor, textLight } from '../../utils/constants'
 function AddPosting() {
     const [form, setForm] = useState()
     const [loading, setLoading] = useState(false)
-    const user = useSelector(state => state.auth.user)
     function handleSubmit() {
         setLoading(true)
         addNewPosting(form, (data) => {

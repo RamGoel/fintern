@@ -7,7 +7,7 @@ function NoRecords() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center'
-        }}><img src='https://www.rajasthanndaacademy.com/assets/images/no-record-found.png' width={200} /></div>
+        }}><img alt='kmkcd' src='https://www.rajasthanndaacademy.com/assets/images/no-record-found.png' width={200} /></div>
     )
 }
 

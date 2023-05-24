@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import Button from '../../components/Button'
+import React from 'react'
 import { applyForPosting } from '../../utils/api'
 import { useSelector } from 'react-redux'
 import './Candidate.css'

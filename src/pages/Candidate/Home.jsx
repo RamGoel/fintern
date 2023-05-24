@@ -5,7 +5,6 @@ import { setPostings } from '../../redux/slices/dataSlice'
 import Loader from '../../components/Loader'
 import PostingCard from './PostingCard'
 import Header from '../../components/Header'
-import Login from '../auth/Login'
 import { useNavigate } from 'react-router'
 import { bgColor, textLight } from '../../utils/constants'
 import './Candidate.css'
@@ -28,6 +27,7 @@ function Home() {
       alert(err)
     })
     console.log(user)
+    //eslint-disable-next-line
   }, [])
 
   if (!Object.keys(user).length) navigate('/')
@@ -46,14 +46,14 @@ function Home() {
           className='candHomeTab'
           onClick={() => setSelected(0)}
           style={{
-            borderBottom: (selected == 0 ? `1px solid ${textLight}` : ''),
+            borderBottom: (selected === 0 ? `1px solid ${textLight}` : ''),
             color: textLight
           }}>Internships</p>
         <p
           className='candHomeTab'
           onClick={() => setSelected(1)}
           style={{
-            borderBottom: (selected == 1 ? `1px solid ${textLight}` : ''),
+            borderBottom: (selected === 1 ? `1px solid ${textLight}` : ''),
             color: textLight
           }}>Applied</p>
 
@@ -63,7 +63,7 @@ function Home() {
       <div className='candHomeList'>
         
         {
-          (selected == 0)
+          (selected === 0)
             ? internships.length ? internships.map(elem => {
               return <PostingCard data={elem} />
             }) : <NoRecords />

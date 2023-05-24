@@ -1,6 +1,4 @@
 import React from 'react'
-import { appName } from '../utils/plugins'
-import Button from './Button'
 import { useNavigate } from 'react-router'
 import { useSelector } from 'react-redux'
 import { btnColor, divColor, textLight } from '../utils/constants'
