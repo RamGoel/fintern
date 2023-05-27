@@ -1,12 +1,29 @@
 import React from 'react'
 import Button from '../../components/Button'
 import { useNavigate } from 'react-router'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { bgColor, textLight } from '../../utils/constants'
 import './Recruiter.css'
+import { useEffect } from 'react'
+import { setPostingsByReviewer } from '../../redux/slices/dataSlice'
+import { getAllPostingsByReviewer } from '../../utils/api'
+import PostingCard from '../../components/PostingCard'
 function RecHome() {
     const navigate = useNavigate()
     const user = useSelector(state => state.auth.user)
+    const dispatch=useDispatch()
+    const postings=useSelector(state=>state.data.postingsByReviewer)
+    useEffect(e => {
+        console.log(user)
+        getAllPostingsByReviewer(user.userId, (data) => {
+            console.log("fmf",data)
+            dispatch(setPostingsByReviewer(data))
+        },(err)=>{
+            console.log(err)
+        })
+
+        //eslint-disable-next-line
+    }, [])
     return (
         <div id='recHomeDiv' style={{
             backgroundColor: bgColor
@@ -27,7 +44,9 @@ function RecHome() {
                     </div>
                     <div>
                         {
-
+                            postings.map(e=>{
+                                return <PostingCard data={e} isReviewer={true} />
+                            })
                         }
                     </div>
                 </div>

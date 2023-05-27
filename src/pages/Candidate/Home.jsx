@@ -3,7 +3,7 @@ import { getAllPostings } from '../../utils/api'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPostings } from '../../redux/slices/dataSlice'
 import Loader from '../../components/Loader'
-import PostingCard from './PostingCard'
+import PostingCard from '../../components/PostingCard'
 import Header from '../../components/Header'
 import { useNavigate } from 'react-router'
 import { bgColor, textLight } from '../../utils/constants'
@@ -15,12 +15,12 @@ function Home() {
   const internships = useSelector(state => state.data.postings)
   const applied = useSelector(state => state.data.applied)
   const [loading, setLoading] = useState(false)
-  const dispatch = useDispatch()
+  const dispatch=useDispatch()
   const navigate = useNavigate()
   useEffect(e => {
     setLoading(true)
     getAllPostings((result) => {
-      dispatch(setPostings({ data: result, userId: user.id }))
+      dispatch(setPostings({data:result, userId:user.userId}))
       setLoading(false)
     }, err => {
       setLoading(false)

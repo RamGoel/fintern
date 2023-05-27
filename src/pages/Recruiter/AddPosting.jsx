@@ -4,12 +4,14 @@ import Loader from '../../components/Loader'
 import Button from '../../components/Button'
 import Input from '../../components/Input'
 import { bgColor, textLight } from '../../utils/constants'
+import { useSelector } from 'react-redux'
 function AddPosting() {
     const [form, setForm] = useState()
     const [loading, setLoading] = useState(false)
+    const user = useSelector(state => state.auth.user)
     function handleSubmit() {
         setLoading(true)
-        addNewPosting(form, (data) => {
+        addNewPosting({ ...form, actor: user }, (data) => {
             setLoading(false)
             alert("Successfully Posted")
         }, err => {
@@ -29,7 +31,7 @@ function AddPosting() {
                     Add <span>Posting</span>
                 </h1>
                 <p style={{
-                    color:textLight
+                    color: textLight
                 }}>It'll be live to candidates when you press submit</p>
                 <Input required={true} type="text" placeHolder='Company' handler={val => {
                     setForm({ ...form, company: val })
@@ -49,8 +51,8 @@ function AddPosting() {
 
                 <Button type='submit' btnText={'Create Posting'} handler={() => null} />
                 <p style={{
-                    color:textLight,
-                    marginTop:'10px'
+                    color: textLight,
+                    marginTop: '10px'
                 }}><i className='fa fa-lock mr'></i>  end to end encrypted</p>
             </form>
         </div>

@@ -1,7 +1,7 @@
 import { auth, db } from "./firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { checkValidObj, generateKey, getErrMessage } from "./plugins";
-import { getDoc, setDoc, doc, getDocs, collection, query, updateDoc, where } from "firebase/firestore";
+import { getDoc, setDoc, doc, getDocs, collection, query, updateDoc } from "firebase/firestore";
 
 export const loginUser = (data, handler, errHandler) => {
 
@@ -49,7 +49,7 @@ export const getAllPostings = async (handler, errHandler) => {
     }).catch(err => errHandler(getErrMessage(err)))
     handler(allPostings)
 }
-export const applyForPosting = (userId,postingId, handler, errHandler) => {
+export const applyForPosting = (userId, postingId, handler, errHandler) => {
     const docRef = doc(db, 'postings', postingId)
     getDoc(docRef).then(res => {
         const updatedApplicants = { ...res.data().applicants }
@@ -73,7 +73,9 @@ export const addNewPosting = async (data, handler, errHandler) => {
     const key = generateKey()
     const docRef = doc(db, 'postings', key)
 
-    setDoc(docRef, { ...data, applicants: [], key: key }).then(res => handler(res, key)).catch(err => errHandler(getErrMessage(err)))
+    setDoc(docRef, { ...data, applicants: {}, key: key })
+        .then(res => handler(res, key))
+        .catch(err => errHandler(getErrMessage(err)))
 }
 export const reviewerSignup = (data, handler, errHandler) => {
     if (checkValidObj(data) === false) {
@@ -88,95 +90,19 @@ export const reviewerSignup = (data, handler, errHandler) => {
         })
     }).catch(err => errHandler(err))
 }
-
-
-export const getConferenceById = async (id, handler, errHandler) => {
-    const docRef = doc(db, 'conferences', id)
-    getDoc(docRef).then(res => {
-        if (res.exists) {
-            handler(res.data())
-        } else {
-            handler(null)
-        }
-    }).catch(err => {
-        errHandler(getErrMessage(err))
-    })
-
-}
-
-export const enableCallForPapers = async (id, handler, errHandler) => {
-    const docRef = doc(db, 'conferences', id)
-    await updateDoc(docRef, {
-        papers: {}
-    }).then(res => {
-        handler(res)
-    }).catch(err => {
-        errHandler(getErrMessage(err))
-    })
-}
-export const getPapersById = async (id, handler, errHandler) => {
-    const docRef = doc(db, 'conferences', id)
-
-    getDoc(docRef).then(result => {
-        handler(result.data())
-    }).catch(err => errHandler(getErrMessage(err)))
-}
-export const getAllReviewer = async (handler, errHandler) => {
-    const q = query(collection(db, "users"), where('role', '==', 'reviewer'));
+export const getAllPostingsByReviewer = async (reviewerId, handler, errHandler) => {
+    var allPostings = []
+    const q = query(collection(db, "postings"));
     await getDocs(q).then(querySnapshot => {
-        var allReviewers = []
         querySnapshot.forEach((doc) => {
-            allReviewers.push(doc.data())
-        })
-        handler(allReviewers)
-    }).catch(err => errHandler(getErrMessage(err)))
-}
-export const assignReviewer = async (email, paperId, confId, handler, errHandler) => {
-    console.log('starting')
-    const docRef = doc(db, 'conferences', confId)
-    getDoc(docRef).then(res => {
-        var allPapers = res.data().papers
-        allPapers[paperId] = { ...allPapers[paperId], assigned: email }
-        updateDoc(docRef, { papers: allPapers }).then(res => {
-            handler(res)
-        }).catch(err => errHandler(getErrMessage(err)))
-    })
-
-}
-export const getAssignedPaper = async (email, handler, errHandler) => {
-    var assignedPapers = []
-    const q = query(collection(db, "conferences"));
-    await getDocs(q).then(querySnapshot => {
-        var allConferences = []
-        querySnapshot.forEach((doc) => {
-            allConferences.push(doc.data())
-        })
-        // eslint-disable-next-line
-        allConferences.map(element => {
-            if (element.papers !== false) {
-                // eslint-disable-next-line
-                element.papers.map(e => {
-                    if (e.assigned === email) {
-                        assignedPapers.push(e)
-                    }
-                })
+            var posting1 = doc.data()
+            if (posting1.actor.userId===String(reviewerId)) {
+                allPostings.push(doc.data())
             }
-        })
-        handler(assignedPapers)
-    }).catch(err => errHandler(getErrMessage(err)))
-}
-export const getConferencesByEmail = async (email, handler, errHandler) => {
-    var allConferences = []
-    try {
 
-        const q = query(collection(db, "conferences"), where('actor', '==', email));
-        await getDocs(q).then(querySnapshot => {
-            querySnapshot.forEach((doc) => {
-                allConferences.push(doc.data())
-            })
-        }).catch(err => errHandler(getErrMessage(err)))
-        handler(allConferences)
-    } catch (e) {
-        errHandler("Some Error Occured", e.message)
-    }
+        })
+        console.log(allPostings)
+    }).catch(err => errHandler(getErrMessage(err)))
+    handler(allPostings)
 }
+

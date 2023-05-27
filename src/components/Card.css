@@ -1,0 +1,30 @@
+.postingCard{
+    padding: 10px;
+    width: 90%;
+    border-radius: 10px;
+    text-align: left;
+    margin: 10px auto;
+}
+.postingCard>div{
+    margin-top: 10px;
+}
+.cardRole{
+    margin: 5px 0px;
+}
+
+.cardLocation,.cardCompany,.cardDuration{
+    font-size: 13px;
+    margin: 0px;
+}
+
+.candHomeTab{
+    font-size: 13px;
+    padding-bottom: 5px;
+    cursor: pointer;
+    transition: 1s ease-in-out;
+}
+
+.candHomeList{
+    min-height: 81.5vh;
+}
+
