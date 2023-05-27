@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router'
 import { useSelector } from 'react-redux'
 import { btnColor, divColor, textLight } from '../utils/constants'
-
+import logo from '../assets/logo-fin.png'
 function Header() {
     const navigate = useNavigate()
     const user = useSelector(state => state.auth.user)
@@ -14,7 +14,7 @@ function Header() {
             padding:'5px 20px',
             backgroundColor: divColor
         }}>
-            <i style={{ color: textLight }} className='fa fa-lock'></i>
+            <img src={logo} alt="smd" width={35} />
             <div
                 style={{
                     width:'30px',

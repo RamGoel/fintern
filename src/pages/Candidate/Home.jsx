@@ -12,7 +12,7 @@ import NoRecords from '../../components/NoRecords'
 function Home() {
   const [selected, setSelected] = useState(0)
   const user = useSelector(state => state.auth.user)
-  const internships = useSelector(state => state.data.internships)
+  const internships = useSelector(state => state.data.postings)
   const applied = useSelector(state => state.data.applied)
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch()
@@ -33,14 +33,15 @@ function Home() {
   if (!Object.keys(user).length) navigate('/')
   if (loading) return <Loader />
   return (
-    <div className='#homeDiv' style={{
+    <div className='homeDiv' style={{
       backgroundColor: bgColor
     }}>
       <Header />
       <div style={{
         display: "flex",
         justifyContent: 'space-around',
-        alignItems:'center'
+        alignItems:'center',
+        padding:'10px 0px'
       }}>
         <p
           className='candHomeTab'
